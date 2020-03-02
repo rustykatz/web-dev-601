@@ -1,2 +1,3 @@
 # WB 601
-Code used for Web Development 601
+Hello russel!
+
