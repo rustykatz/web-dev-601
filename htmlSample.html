@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>
+
+div{
+  background-color:orange;
+}
+
+.foo{
+  background-color: grey;
+}
+
+p{
+  font-size: 25px;
+}
+</style>
+
+
+
+<div class = "foo">
+ 
+  <a id="myAnchor" href="http://www.underthegui.com">Under The GUI</a><br>
+  <p id= "x">This is some cool sample text!</p> <br>
+  <p>Clicks: <a id ="num">0</a> </p>
+
+</div>
+<div>
+
+<button onclick="myFunction()">Change link</button> <br>
+<button onclick="f2()">Change Red</button> <br>
+<button onclick="f3()">Add 1</button>
+</div>
+<script>
+function myFunction() {
+  document.getElementById("myAnchor").innerHTML = "W3Schools";
+  document.getElementById("myAnchor").href = "https://www.w3schools.com";
+  document.getElementById("myAnchor").target = "_bnvnvnbblank";
+}
+
+function f2(){
+	var coolName = document.getElementById("x");
+    coolName.style.fontSize = "25px";
+    coolName.style.color = "red";
+    coolName.style.backgroundColor = "black";
+}
+
+var p = {
+	name:"Bob",
+    last:"Ross",
+    id: 420,
+    full: function(){
+		return (this.name + " " + this.last);    
+    }
+}
+
+
+var c = 0;
+document.getElementById("num")
+function f3(){
+	var x = document.getElementById("num");
+	c +=1;
+    x.innerHTML = c;
+    }
+</script>
+
+</body>
+</html> 
