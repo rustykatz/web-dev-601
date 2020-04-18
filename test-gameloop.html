@@ -29,6 +29,7 @@
     var power = 1;
     function addScore(){
         var scoreOnPage = document.getElementById("scoreText");
+        //Score increases by power
         score += power;
         scoreOnPage.innerHTML = score;
 
@@ -39,18 +40,22 @@
         }
     }
 
+    // Buy feature
     function upgrade(){
         var powerTxt = document.getElementById("powerLevel");
         var scoreTxt = document.getElementById("scoreText");
+        // if score is greater than 5, decrease score by 5 and add to power
         if(score >= 5){
             score -= 5;
             power += 1;
         }
+        // Update Text
         powerTxt.innerHTML = power;
         scoreTxt.innerHTML = score;
     }
 
-    function update(){
+    // Automatically adds +1 to Clicks
+    function autoClick(){
         var scoreOnPage = document.getElementById("scoreText");
         score += 1;
         scoreOnPage.innerHTML = score;
@@ -69,12 +74,14 @@
         lastFrameTimeMS = timestamp;
 
         // Put all the code to constantly run here
-        update();
+        autoClick();
         requestAnimationFrame(mainLoop);
     }
     requestAnimationFrame(mainLoop);
 
 
+
+    
     function changeLink(){
         var linktext = document.getElementById("link");
         linktext.innerHTML = "Google";
