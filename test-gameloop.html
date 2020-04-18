@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<body>
+    <div class = "clicks">
+        <a id="link" href="www.underthegui.com">Under the GUI</a>
+        <p>Clicks: <a id="scoreText">0</a></p>
+        <p id="message">This is some cool message</p>
+        <p>Power Level: <a id="powerLevel"> 1 </a></p>
+        <p>Level: <a id="levelText"> Beginner </a></p>
+    </div>
+
+
+    <div class = "buttons">
+        <button onclick="addScore()"> Add 1</button>
+        <button onclick="upgrade()"> +1 Power</button>
+
+        <button onclick="changeLink()">Change Link</button>
+        <button onclick="showMessage()">Show Message</button>
+    </div>
+
+
+<script>
+
+    var score = 0;
+    var power = 1;
+    function addScore(){
+        var scoreOnPage = document.getElementById("scoreText");
+        score += power;
+        scoreOnPage.innerHTML = score;
+
+        // Change Level
+        var level = document.getElementById("levelText");
+        if(score == 5){
+            level.innerHTML = "Not a beginner"
+        }
+    }
+
+    function upgrade(){
+        var powerTxt = document.getElementById("powerLevel");
+        var scoreTxt = document.getElementById("scoreText");
+        if(score >= 5){
+            score -= 5;
+            power += 1;
+        }
+        powerTxt.innerHTML = power;
+        scoreTxt.innerHTML = score;
+    }
+
+    function update(){
+        var scoreOnPage = document.getElementById("scoreText");
+        score += 1;
+        scoreOnPage.innerHTML = score;
+    }
+
+    // Game Loop
+    var lastFrameTimeMS = 0;
+    maxFPS = 2;
+    
+    function mainLoop(timestamp){
+        if (timestamp < lastFrameTimeMS + (1000 / maxFPS)) {
+            requestAnimationFrame(mainLoop);
+            return;
+        }
+        
+        lastFrameTimeMS = timestamp;
+
+        // Put all the code to constantly run here
+        update();
+        requestAnimationFrame(mainLoop);
+    }
+    requestAnimationFrame(mainLoop);
+
+
+    function changeLink(){
+        var linktext = document.getElementById("link");
+        linktext.innerHTML = "Google";
+        linktext.href = "www.google.com";
+    }
+
+    function showMessage(){
+        var msg = document.getElementById("message");
+        msg.innerHTML = "Cool message";
+    }
+
+
+    
+ 
+
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<body>
+    <div class = "clicks">
+        <a id="link" href="www.underthegui.com">Under the GUI</a>
+        <p>Clicks: <a id="num">0</a></p>
+        <p id="message">This is some cool message</p>
+    </div>
+
+
+    <div class = "buttons">
+        <button onclick="myFunction()"> Add 1</button>
+        <button onclick="myFunction1()">Change Link</button>
+        <button onclick="myFunction2()">Show Message</button>
+    </div>
+
+
+<script>
+
+    var number = 0;
+    function myFunction(){
+        var numberOnThePage = document.getElementById("num");
+        number +=1;
+        numberOnThePage.innerHTML = number;
+
+    }
+
+    function myFunction1(){
+        var linktext = document.getElementById("link");
+        linktext.innerHTML = "Google";
+        linktext.href = "www.google.com";
+    }
+
+    function myFunction2(){
+        var msg = document.getElementById("message");
+        msg.innerHTML = "Cool message";
+    }
+
+    // >, >= , <, <=, ==, !=
+    
+    // > Greater than 
+    // 1.  9 > 10 ? False
+    // 2. 11 > 10 ? True
+    // 3. 10 > 10 ? False
+
+    // >= Greater than or Equal to
+    // 1.  9 >= 10 ? False
+    // 2. 11 >= 10 ? True
+    // 3. 10 >= 10 ? True
+
+    // < Less than
+    // 1.  9 < 10 ? True
+    // 2. 11 < 10 ? False
+    // 3. 10 < 10 ? False
+
+    // < Less than or equal
+    // 1.  9 <= 10 ? True
+    // 2. 11 <= 10 ? False
+    // 3. 10 <= 10 ? True
+
+    // == Equals
+    // 1.  9 == 10 ? False
+    // 2. 11 == 10 ? False
+    // 3. 10 == 10 ? True
+
+    // != Not Equals
+    // 1.  9 != 10 ? True
+    // 2. 11 != 10 ? True
+    // 3. 10 != 10 ? False
+
+    // Math operators: +, -, *, /
+    var a = 67
+    var b = 48
+    var add = a + b // Will be using to add to score
+    var minus = a - b // Buying items take away our points
+    var multiply = a * b // Doubles score
+    var divide = a/b 
+    // easy mode -> 5 coins a click 
+    // medium -> 2.5 coins a click 
+    // hard -> 1 coin a click 
+    //var can any number, string, character or true false 
+    var score = 0;
+    
+    var number;
+    for(number = 0 ; number <= 100; number++){
+        // Print statement 
+        number = number 
+    }
+    //number = 100
+
+    1. Score starts at 0
+    2. Add 2 to score
+    3. Run 100 times 
+
+
+    //Steps 
+    step 1: number = 1
+    step 2: check number <= 4? True continue, False stop don't run code
+    step 3: run code inside
+    step 4: number (increase with '++' or decrease with '--')
+
+    // // First time 
+    // number = 3
+    // number >= 1? True
+    // score = 10 + 3 = 13
+    // number-- 
+    // //Second time 
+    // number = 2
+    // number >=1? True
+    // score = 13 + 2 = 15 
+    // number--
+    // //3rd Time
+    // number = 1
+    // number >=1? True
+    // score = 15 + 1 = 16
+    // number--
+    // //4th Time 
+    // number = 0
+    // number >= 1? False Dont run any more code
+
+    
+
+
+
+    //4th Time
+    number = 4
+    number <=4? True, yes
+    score = 6 + 4 = 10 
+    number ++
+    //5th time 
+    number = 5
+    number <= 4? False // Dont run any more
+
+
+    //6th Time
+    number = 5
+    number <5? No
+
+
+    //Second time we run the code
+
+    console.log("hello World")
+
+</script>
+
+
+
+</body>
+
+</html>
