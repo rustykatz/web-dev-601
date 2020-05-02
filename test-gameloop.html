@@ -5,19 +5,36 @@
 </head>
 
 <body>
-    <div class = "clicks">
+    <div class = "gameInfo">
         <a id="link" href="www.underthegui.com">Under the GUI</a>
         <p>Clicks: <a id="scoreText">0</a></p>
         <p id="message">This is some cool message</p>
-        <p>Power Level: <a id="powerLevel"> 1 </a></p>
+    </div>
+
+    <div class = "levelInfo">
+        <p>Base Level: <a id="baseLevel"> 1 </a></p>
+        <p>Worker Level: <a id="workerLevel"> 0 </a></p>
+        <p>Farm Level: <a id="farmLevel"> 0 </a></p>
+        <p>Mine Level: <a id="mineLevel"> 0 </a></p>
+        <p>Factory Level: <a id="factoryLevel"> 0 </a></p>
+
         <p>Level: <a id="levelText"> Beginner </a></p>
     </div>
 
-
     <div class = "buttons">
-        <button onclick="addScore()"> Add 1</button>
-        <button onclick="upgrade()"> +1 Power</button>
+        <h1>Basic Click</h1>
+        <button onclick="basicClick()"> Add 1</button> 
+        <br> 
+        <!-- Extra Upgrades-->
+        <h1> Upgrades</h1>
+        <button onclick="upgradeBasePower()"> +1 Base Power</button>
+        <button onclick="upgradeWorkerPower()"> +1 Worker Power</button>
+        <button onclick="upgradeFarmPower()"> +1 Farm Power</button> <br>
+        <button onclick="upgradeMinePower()"> +1 Mine Power</button>
+        <button onclick="upgradeFactoryPower()"> +1 Factory Power</button>
+       
 
+        <h1>Other</h1>
         <button onclick="changeLink()">Change Link</button>
         <button onclick="showMessage()">Show Message</button>
     </div>
@@ -25,43 +42,120 @@
 
 <script>
 
+    // Global Vars
     var score = 0;
-    var power = 1;
-    function addScore(){
-        var scoreOnPage = document.getElementById("scoreText");
-        //Score increases by power
-        score += power;
-        scoreOnPage.innerHTML = score;
 
-        // Change Level
-        var level = document.getElementById("levelText");
-        if(score == 5){
-            level.innerHTML = "Not a beginner"
-        }
-    }
+    // Extra Upgrades
+    var basePower = 1;
+    var workerPower = 0;
+    var farmPower = 0;
+    var minePower =0;
+    var factoryPower =0;
 
-    // Buy feature
-    function upgrade(){
-        var powerTxt = document.getElementById("powerLevel");
+    // Cost values
+    var upBaseCost = 5;
+    var upWorkerCost = 5;
+    var upFarmCost = 5;
+    var upMineCost = 5;
+    var upFactoryCost = 5;
+
+    // ~~~~~~~~~~~~~~~~~~~
+    // ~ UPGRADE LEVELS ~~
+    // ~~~~~~~~~~~~~~~~~~~
+    function upgradeBasePower(){
+        var baseTxt = document.getElementById("baseLevel");
         var scoreTxt = document.getElementById("scoreText");
-        // if score is greater than 5, decrease score by 5 and add to power
-        if(score >= 5){
-            score -= 5;
-            power += 1;
+        // Check upgrade is affordable
+        if(score >= upBaseCost){
+            score -= upBaseCost;
+            basePower += 1;
         }
         // Update Text
-        powerTxt.innerHTML = power;
+        baseTxt.innerHTML = basePower;
         scoreTxt.innerHTML = score;
     }
 
-    // Automatically adds +1 to Clicks
+    function upgradeWorkerPower(){
+        var workerTxt = document.getElementById("workerLevel");
+        var scoreTxt = document.getElementById("scoreText");
+        // Check upgrade is affordable
+        if(score >= upWorkerCost){
+            score -= upWorkerCost;
+            workerPower += 1;
+        }
+        // Update Text
+        workerTxt.innerHTML = workerPower;
+        scoreTxt.innerHTML = score;
+    }
+
+    function upgradeFarmPower(){
+        var farmTxt = document.getElementById("farmLevel");
+        var scoreTxt = document.getElementById("scoreText");
+        // Check upgrade is affordable
+        if(score >= upFarmCost){
+            score -= upFarmCost;
+            farmPower += 1;
+        }
+        // Update Text
+        farmTxt.innerHTML = farmPower;
+        scoreTxt.innerHTML = score;
+    }
+
+    function upgradeMinePower(){
+        var mineTxt = document.getElementById("mineLevel");
+        var scoreTxt = document.getElementById("scoreText");
+        // Check upgrade is affordable
+        if(score >= upMineCost){
+            score -= upMineCost;
+            minePower += 1;
+        }
+        // Update Text
+        mineTxt.innerHTML = minePower;
+        scoreTxt.innerHTML = score;
+    }
+
+    function upgradeFactoryPower(){
+        var factoryTxt = document.getElementById("factoryLevel");
+        var scoreTxt = document.getElementById("scoreText");
+        // Check upgrade is affordable
+        if(score >= upFactoryCost){
+            score -= upFactoryCost;
+            factoryPower += 1;
+        }
+        // Update Text
+        factoryTxt.innerHTML = factoryPower;
+        scoreTxt.innerHTML = score;
+    }
+
+
+
+    // ~~~~~~~~~~~~~~~~~
+    // ~~ BASIC CLICK ~~
+    // ~~~~~~~~~~~~~~~~~
+    function basicClick(){
+        var scoreTxt = document.getElementById("scoreText");
+        //Score increases by power
+        score += basePower;
+        scoreTxt.innerHTML = score;
+
+    }
+
+
+    // ~~~~~~~~~~~~~~~~~
+    // ~~ AUTO CLICKS ~~ 
+    // ~~~~~~~~~~~~~~~~~
     function autoClick(){
         var scoreOnPage = document.getElementById("scoreText");
         score += 1;
         scoreOnPage.innerHTML = score;
     }
 
-    // Game Loop
+    
+   
+
+    // ~~~~~~~~~~~~~~~
+    // ~~ GAME LOOP ~~
+    // ~~~~~~~~~~~~~~~
     var lastFrameTimeMS = 0;
     maxFPS = 2;
     
@@ -80,7 +174,9 @@
     requestAnimationFrame(mainLoop);
 
 
-
+    // ~~~~~~~~~~~~~~~~~
+    // ~~ OTHER STUFF ~~
+    // ~~~~~~~~~~~~~~~~~
     
     function changeLink(){
         var linktext = document.getElementById("link");
