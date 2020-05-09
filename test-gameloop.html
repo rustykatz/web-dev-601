@@ -18,7 +18,16 @@
         <p>Mine Level: <a id="mineLevel"> 0 </a></p>
         <p>Factory Level: <a id="factoryLevel"> 0 </a></p>
 
-        <p>Level: <a id="levelText"> Beginner </a></p>
+        <p>Level: <a id="levelText"> Beginner </a></p> <br>
+    </div>
+
+    <div class = "costInfo">
+        <p>Base Cost: <a id="baseCost"> 2 </a></p>
+        <p>Worker Cost: <a id="workerCost"> 4 </a></p>
+        <p>Farm Cost: <a id="farmCost"> 8 </a></p>
+        <p>Mine Cost: <a id="mineCost"> 16 </a></p>
+        <p>Factory Cost: <a id="factoryCost"> 32 </a></p>
+
     </div>
 
     <div class = "buttons">
@@ -45,6 +54,13 @@
     // Global Vars
     var score = 0;
 
+    // Scale Factor - 10%
+    var scale = 0.1; 
+
+    // Scale formula
+    // Cost = floor( Level * Scale Factor + level )
+    // Use floor to get nearest whole number 
+
     // Extra Upgrades
     var basePower = 1;
     var workerPower = 0;
@@ -53,11 +69,11 @@
     var factoryPower =0;
 
     // Cost values
-    var upBaseCost = 5;
-    var upWorkerCost = 5;
-    var upFarmCost = 5;
-    var upMineCost = 5;
-    var upFactoryCost = 5;
+    var upBaseCost = 2;
+    var upWorkerCost = 4;
+    var upFarmCost = 8;
+    var upMineCost = 16;
+    var upFactoryCost = 32;
 
     // ~~~~~~~~~~~~~~~~~~~
     // ~ UPGRADE LEVELS ~~
@@ -65,68 +81,82 @@
     function upgradeBasePower(){
         var baseTxt = document.getElementById("baseLevel");
         var scoreTxt = document.getElementById("scoreText");
+        var baseCostTxt =  document.getElementById("baseCost");
         // Check upgrade is affordable
         if(score >= upBaseCost){
             score -= upBaseCost;
             basePower += 1;
+            upBaseCost += Math.floor(basePower * scale + basePower);
         }
         // Update Text
         baseTxt.innerHTML = basePower;
         scoreTxt.innerHTML = score;
+        baseCostTxt.innerHTML = upBaseCost;
     }
 
     function upgradeWorkerPower(){
         var workerTxt = document.getElementById("workerLevel");
         var scoreTxt = document.getElementById("scoreText");
+        var workerCostTxt = document.getElementById("workerCost");
         // Check upgrade is affordable
         if(score >= upWorkerCost){
             score -= upWorkerCost;
             workerPower += 1;
+            upWorkerCost += Math.floor(workerPower * scale + workerPower);
         }
         // Update Text
         workerTxt.innerHTML = workerPower;
         scoreTxt.innerHTML = score;
+        workerCostTxt.innerHTML = upWorkerCost;
     }
 
     function upgradeFarmPower(){
         var farmTxt = document.getElementById("farmLevel");
         var scoreTxt = document.getElementById("scoreText");
+        var farmCostTxt = document.getElementById("farmCost");
         // Check upgrade is affordable
         if(score >= upFarmCost){
             score -= upFarmCost;
             farmPower += 1;
+            upFarmCost += Math.floor(farmPower * scale + farmPower);
         }
         // Update Text
         farmTxt.innerHTML = farmPower;
         scoreTxt.innerHTML = score;
+        farmCostTxt.innerHTML = upFarmCost;
     }
 
     function upgradeMinePower(){
         var mineTxt = document.getElementById("mineLevel");
         var scoreTxt = document.getElementById("scoreText");
+        var mineCostTxt = document.getElementById("mineCost");
         // Check upgrade is affordable
         if(score >= upMineCost){
             score -= upMineCost;
             minePower += 1;
+            upMineCost += Math.floor(minePower * scale + minePower);
         }
         // Update Text
         mineTxt.innerHTML = minePower;
         scoreTxt.innerHTML = score;
+        mineCostTxt.innerHTML = upMineCost;
     }
 
     function upgradeFactoryPower(){
         var factoryTxt = document.getElementById("factoryLevel");
         var scoreTxt = document.getElementById("scoreText");
+        var factoryCostTxt = document.getElementById("factoryCost");
         // Check upgrade is affordable
         if(score >= upFactoryCost){
             score -= upFactoryCost;
             factoryPower += 1;
+            upFactoryCost += Math.floor(factoryPower * scale + factoryPower);
         }
         // Update Text
         factoryTxt.innerHTML = factoryPower;
         scoreTxt.innerHTML = score;
+        factoryCostTxt.innerHTML = upFactoryCost;
     }
-
 
 
     // ~~~~~~~~~~~~~~~~~
@@ -150,8 +180,6 @@
         scoreOnPage.innerHTML = score;
     }
 
-    
-   
 
     // ~~~~~~~~~~~~~~~
     // ~~ GAME LOOP ~~
@@ -173,7 +201,6 @@
     }
     requestAnimationFrame(mainLoop);
 
-
     // ~~~~~~~~~~~~~~~~~
     // ~~ OTHER STUFF ~~
     // ~~~~~~~~~~~~~~~~~
@@ -188,10 +215,6 @@
         var msg = document.getElementById("message");
         msg.innerHTML = "Cool message";
     }
-
-
-    
- 
 
 </script>
 
