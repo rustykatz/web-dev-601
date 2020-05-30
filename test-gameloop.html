@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title>Clicker Bois</title>
 </head>
 
 <body>
@@ -36,17 +36,24 @@
         <br> 
         <!-- Extra Upgrades-->
         <h1> Upgrades</h1>
-        <button onclick="upgradeBasePower()"> +1 Base Power</button>
-        <button onclick="upgradeWorkerPower()"> +1 Worker Power</button>
-        <button onclick="upgradeFarmPower()"> +1 Farm Power</button> <br>
-        <button onclick="upgradeMinePower()"> +1 Mine Power</button>
-        <button onclick="upgradeFactoryPower()"> +1 Factory Power</button>
-       
+        <button onclick="buy_1()"> Buy 1</button>
+        <button onclick="buy_10()"> Buy 10</button>
+        <button onclick="buy_100()"> Buy 100</button>
+        <button onclick="buy_max()"> Buy Max</button> 
+        <p>Bulk Buy: <a id ="upAmount"> 1</p> <br> <br>
 
+        <button id = "upBasePower" onclick="upgradeBasePower()"> +1 Base Power</button>
+        <button id = "upWorkerPower" onclick= "upgradeWorkerPower()"> +1 Worker Power</button>
+        <button id = "upFarmPower" onclick="upgradeFarmPower()"> +1 Farm Power</button> <br>
+        <button id = "upMinePower" onclick="upgradeMinePower()"> +1 Mine Power</button>
+        <button id = "upFactoryPower" onclick="upgradeFactoryPower()"> +1 Factory Power</button>
+       
         <h1>Other</h1>
         <button onclick="changeLink()">Change Link</button>
         <button onclick="showMessage()">Show Message</button>
     </div>
+
+    
 
 
 <script>
@@ -75,6 +82,74 @@
     var upMineCost = 16;
     var upFactoryCost = 32;
 
+    //Toggle 1, 10, 100
+    var upToggle = '1';
+    var toggle = document.getElementById("upAmount");
+    var baseTxt = document.getElementById("upBasePower");
+    var workTxt = document.getElementById("upWorkerPower");
+    var farmTxt = document.getElementById("upFarmPower");
+    var mineTxt = document.getElementById("upMinePower");
+    var factTxt = document.getElementById("upFactoryPower");
+
+    // ~~~~~~~~~~~~~~~~~~~
+    // ~ UPGRADE TOGGLE ~~
+    // ~~~~~~~~~~~~~~~~~~~
+
+    function buy_1(){
+        upToggle = '1';
+        toggle.innerHTML = upToggle;
+
+        baseTxt.innerText = "+1 Base Power";
+        workTxt.innerText = "+1 Worker Power";
+        farmTxt.innerHTML = "+1 Farm Power";
+        mineTxt.innerHTML = "+1 Mine Power";
+        factTxt.innerHTML = "+1 Factory Power";
+    }
+    function buy_10(){
+        upToggle = '10';
+        toggle.innerHTML = upToggle;
+
+        baseTxt.innerText = "+10 Base Power";
+        workTxt.innerText = "+10 Worker Power";
+        farmTxt.innerHTML = "+10 Farm Power";
+        mineTxt.innerHTML = "+10 Mine Power";
+        factTxt.innerHTML = "+10 Factory Power"
+
+    }
+    function buy_100(){
+        upToggle = '100';
+        toggle.innerHTML = upToggle;
+
+        baseTxt.innerText = "+100 Base Power";
+        workTxt.innerText = "+100 Worker Power";
+        farmTxt.innerHTML = "+100 Farm Power";
+        mineTxt.innerHTML = "+100 Mine Power";
+        factTxt.innerHTML = "+100 Factory Power";
+
+    }
+
+    function buy_max(){
+        upToggle = 'Max';
+        toggle.innerHTML = upToggle;
+
+       // money / cost = number of things we buy
+
+    }
+    
+    // Runs in mainloop, constantly updates the # of upgrades that can be bought when 'Max' is selected
+    function update_max(){
+        if(upToggle == 'Max'){
+            var maxQuantityBase = Math.floor(score/ upBaseCost);
+            baseTxt.innerText = "+" + maxQuantityBase + " Base Power";
+            workTxt.innerText = "+Max Worker Power";
+            farmTxt.innerHTML = "+Max Farm Power";
+            mineTxt.innerHTML = "+Max Mine Power";
+            factTxt.innerHTML = "+Max Factory Power";
+        }
+
+    }
+
+
     // ~~~~~~~~~~~~~~~~~~~
     // ~ UPGRADE LEVELS ~~
     // ~~~~~~~~~~~~~~~~~~~
@@ -82,12 +157,50 @@
         var baseTxt = document.getElementById("baseLevel");
         var scoreTxt = document.getElementById("scoreText");
         var baseCostTxt =  document.getElementById("baseCost");
-        // Check upgrade is affordable
-        if(score >= upBaseCost){
-            score -= upBaseCost;
-            basePower += 1;
-            upBaseCost += Math.floor(basePower * scale + basePower);
+
+        // Check bulk option
+        switch(upToggle){
+
+            case '1':
+                // Check upgrade is affordable
+                if(score >= upBaseCost){
+                    score -= upBaseCost;
+                    basePower += 1;
+                    upBaseCost += Math.floor(basePower * scale + basePower);
+                }
+                break;
+
+            case '10':
+                // Check upgrade is affordable
+                if(score >= upBaseCost * 10){
+                    score -= upBaseCost * 10;
+                    basePower += 10;
+                    upBaseCost += Math.floor((basePower * scale + basePower) * 10);
+                }
+                break;
+
+            case '100':
+                // Check upgrade is affordable
+                if(score >= upBaseCost * 100){
+                    score -= upBaseCost * 100;
+                    basePower += 100;
+                    upBaseCost += Math.floor((basePower * scale + basePower) * 100);
+                }
+                break;
+
+            case 'Max':
+                // Get maximum number of upgrades we can buy with current score
+                var maxQuantity = Math.floor(score/ upBaseCost);
+
+                // Check upgrade is affordable
+                if(score >= upBaseCost * maxQuantity){
+                    score -= upBaseCost * maxQuantity;
+                    basePower += maxQuantity;
+                    upBaseCost += Math.floor((basePower * scale + basePower) * maxQuantity);
+                }
+                break;
         }
+
         // Update Text
         baseTxt.innerHTML = basePower;
         scoreTxt.innerHTML = score;
@@ -174,11 +287,28 @@
     // ~~~~~~~~~~~~~~~~~
     // ~~ AUTO CLICKS ~~ 
     // ~~~~~~~~~~~~~~~~~
-    function autoClick(){
+    function workerAutoClick(){
         var scoreOnPage = document.getElementById("scoreText");
-        score += 1;
+        score += workerPower;
         scoreOnPage.innerHTML = score;
     }
+    function farmAutoClick(){
+        var scoreOnPage = document.getElementById("scoreText");
+        score += farmPower * 3;
+        scoreOnPage.innerHTML = score;
+    }
+    function mineAutoClick(){
+        var scoreOnPage = document.getElementById("scoreText");
+        score += minePower * 5;
+        scoreOnPage.innerHTML = score;
+    }
+    function factoryAutoClick(){
+        var scoreOnPage = document.getElementById("scoreText");
+        score += factoryPower * 8;
+        scoreOnPage.innerHTML = score;
+    }
+
+
 
 
     // ~~~~~~~~~~~~~~~
@@ -196,7 +326,12 @@
         lastFrameTimeMS = timestamp;
 
         // Put all the code to constantly run here
-        autoClick();
+        workerAutoClick();
+        farmAutoClick();
+        mineAutoClick();
+        factoryAutoClick();
+        update_max();
+
         requestAnimationFrame(mainLoop);
     }
     requestAnimationFrame(mainLoop);
