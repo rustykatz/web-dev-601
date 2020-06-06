@@ -140,11 +140,16 @@
     function update_max(){
         if(upToggle == 'Max'){
             var maxQuantityBase = Math.floor(score/ upBaseCost);
+            var maxQuantityWorker = Math.floor(score/ upWorkerCost);
+            var maxQuantityFarm = Math.floor(score/ upFarmCost);
+            var maxQuantityMine = Math.floor(score/ upMineCost);
+            var maxQuantityFactory = Math.floor(score/ upFactoryCost);
+
             baseTxt.innerText = "+" + maxQuantityBase + " Base Power";
-            workTxt.innerText = "+Max Worker Power";
-            farmTxt.innerHTML = "+Max Farm Power";
-            mineTxt.innerHTML = "+Max Mine Power";
-            factTxt.innerHTML = "+Max Factory Power";
+            workTxt.innerText = "+" + maxQuantityWorker + " Worker Power";
+            farmTxt.innerHTML = "+" + maxQuantityFarm + " Farm Power";
+            mineTxt.innerHTML = "+" + maxQuantityMine + " Mine Power";
+            factTxt.innerHTML = "+" + maxQuantityFactory + " Factory Power";
         }
 
     }
@@ -153,10 +158,100 @@
     // ~~~~~~~~~~~~~~~~~~~
     // ~ UPGRADE LEVELS ~~
     // ~~~~~~~~~~~~~~~~~~~
+
+    function upgradeBuy(name){
+        var power = 0;
+        var upCost = 0;
+
+        switch(name){
+            case 'WorkerPower':
+                power = workerPower;
+                upCost = upWorkerCost;
+                break;
+            case 'FarmPower':
+                power = farmPower;
+                upCost = upFarmCost;
+                break;
+            case 'MinePower':
+                power = minePower;
+                upCost = upMineCost;
+                break;
+            case 'FactoryPower':
+                power = factoryPower;
+                upCost = upFactoryCost;
+                break;
+        }
+
+        // Check bulk option
+        switch(upToggle){
+
+            case '1':
+                // Check upgrade is affordable
+                if(score >= upCost){
+                    score -= upCost;
+                    power += 1;
+                    upCost += Math.floor(power * scale + power);
+                }
+                break;
+
+            case '10':
+                // Check upgrade is affordable
+                if(score >= upCost * 10){
+                    score -= upCost * 10;
+                    power += 10;
+                    upCost += Math.floor((power * scale + power) * 10);
+                }
+                break;
+
+            case '100':
+                // Check upgrade is affordable
+                if(score >= upCost * 100){
+                    score -= upCost * 100;
+                    power += 100;
+                    upCost += Math.floor((power * scale + power) * 100);
+                }
+                break;
+
+            case 'Max':
+                // Get maximum number of upgrades we can buy with current score
+                var maxQuantity = Math.floor(score/ upCost);
+
+                // Check upgrade is affordable
+                if(score >= upCost * maxQuantity){
+                    score -= upCost * maxQuantity;
+                    power += maxQuantity;
+                    upCost += Math.floor((power * scale + power) * maxQuantity);
+                }
+                break;
+        }
+
+        switch(name){
+            case 'WorkerPower':
+                workerPower = power;
+                upWorkerCost = upCost;
+                break;
+            case 'FarmPower':
+                farmPower = power;
+                upFarmCost = upCost;
+                break;
+            case 'MinePower':
+                minePower = power;
+                upMineCost = upCost;
+                break;
+            case 'FactoryPower':
+                factoryPower = power;
+                upFactoryCost = upCost;
+                break;
+        }
+
+
+    }
+
     function upgradeBasePower(){
         var baseTxt = document.getElementById("baseLevel");
         var scoreTxt = document.getElementById("scoreText");
         var baseCostTxt =  document.getElementById("baseCost");
+
 
         // Check bulk option
         switch(upToggle){
@@ -212,11 +307,9 @@
         var scoreTxt = document.getElementById("scoreText");
         var workerCostTxt = document.getElementById("workerCost");
         // Check upgrade is affordable
-        if(score >= upWorkerCost){
-            score -= upWorkerCost;
-            workerPower += 1;
-            upWorkerCost += Math.floor(workerPower * scale + workerPower);
-        }
+        let upgradeName = "WorkerPower";
+        upgradeBuy(upgradeName);
+        
         // Update Text
         workerTxt.innerHTML = workerPower;
         scoreTxt.innerHTML = score;
@@ -228,11 +321,9 @@
         var scoreTxt = document.getElementById("scoreText");
         var farmCostTxt = document.getElementById("farmCost");
         // Check upgrade is affordable
-        if(score >= upFarmCost){
-            score -= upFarmCost;
-            farmPower += 1;
-            upFarmCost += Math.floor(farmPower * scale + farmPower);
-        }
+        let upgradeName = "FarmPower";
+        upgradeBuy(upgradeName);
+
         // Update Text
         farmTxt.innerHTML = farmPower;
         scoreTxt.innerHTML = score;
@@ -244,11 +335,9 @@
         var scoreTxt = document.getElementById("scoreText");
         var mineCostTxt = document.getElementById("mineCost");
         // Check upgrade is affordable
-        if(score >= upMineCost){
-            score -= upMineCost;
-            minePower += 1;
-            upMineCost += Math.floor(minePower * scale + minePower);
-        }
+        let upgradeName = "MinePower";
+        upgradeBuy(upgradeName);
+
         // Update Text
         mineTxt.innerHTML = minePower;
         scoreTxt.innerHTML = score;
@@ -260,11 +349,9 @@
         var scoreTxt = document.getElementById("scoreText");
         var factoryCostTxt = document.getElementById("factoryCost");
         // Check upgrade is affordable
-        if(score >= upFactoryCost){
-            score -= upFactoryCost;
-            factoryPower += 1;
-            upFactoryCost += Math.floor(factoryPower * scale + factoryPower);
-        }
+        let upgradeName = "FactoryPower";
+        upgradeBuy(upgradeName);
+
         // Update Text
         factoryTxt.innerHTML = factoryPower;
         scoreTxt.innerHTML = score;
